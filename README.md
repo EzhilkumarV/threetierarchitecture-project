@@ -25,99 +25,149 @@ Where The Output will be displayed as If I login on to my domain zorogaming.shop
 - CI/CD Pipeline (Optional)
 
   ##Deployment Steps
- 1. Create a VPC
+🚀 ZoroGaming AWS Deployment Project
 
-   
- 2. Create 6 Subnets
+This project demonstrates a highly available, secure, and scalable architecture on AWS for zorogaming.shop.
 
- 3. Subnets for Web Server
+1️⃣ VPC & Subnets
 
-4. Subnets for App Server
+Create VPC
 
-   
-5 Subnets for Database
+Create 6 Subnets:
 
-6. Create Route Tables
-Public Route Table: Connects with Internet Gateway and 2 public subnets.
-Private Route Table: Create Private Route table for eachsubnet and Map NatGateway from each Availability zone for High Availability
-No NAT for Database: If required for database patching, Map Natgateway to Database Route table
+2 Public Subnets → For Web Servers
 
-7. Create 3 Security Groups
-WebServer-SG: Allows SSH (ALL), HTTP (ALL), HTTPS (ALL).
-AppServer-SG: Allows 5000 from WebServer-SG, SSH from WebServer-SG, 80 from WebServer-SG, 443 from WebServer-SG.
-DB-SG: Allows 3306 from AppServer-SG.
-Task: Instead of three Security Group create Five Security Groups
+2 Private Subnets → For App Servers
 
-8. Create Route 53 (R53) Hosted Zone
-Create a Hosted Zone for a domain name.
-Map R53 NameServer with your Domain Service Provider.
+2 Private Subnets (DB Subnet Group) → For Databases
 
-10. Validate ACM with R53
-Request a Certificate for your domain name.
-Create a CNAME record in R53 from ACM to validate your domain ownership.
+2️⃣ Route Tables
 
-12. Create RDS
-Create a DB Subnet group at least 2 subnets needed.
-Create a MySQL DB in a private subnet with DB-SG.
+Public Route Table
 
-14. Create Web Server EC2
-Launch an EC2 instance in the public subnet with WebServer-SG.
+Connect to Internet Gateway
 
-15. Create App Server EC2
-Launch an EC2 instance in the private subnet with AppServer-SG.
+Associate with 2 Public Subnets
 
-16. Command to Login to App Server
-vi zoro.pem
-chmod 400 zoro.pem
-ssh -i zoro.pem ec2-user@10.0.4.162
+Private Route Tables
 
-17. Setup Database
-sudo yum install mysql -y
-mysql -h ytdb.cpk8oagkgyaz.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
-Provide queries from commands.sql file to create DB, tables, and insert data into the table.
+One per Availability Zone
 
-18. Setup App Server
-sudo yum install python3 python3-pip -y
-pip3 install flask flask-mysql-connector flask-cors
-vi app.py
+Map NAT Gateway for Web & App Subnets
 
-nohup python3 app.py > output.log 2>&1 &
-ps -ef | grep app.py
+Database Subnets → No NAT (private).
 
-cat output.log 
-curl http://10.0.3.47:5000/login
+(Optional: Allow NAT only for patching)
 
-19. Setup Web Server
+3️⃣ Security Groups
+
+WebServer-SG:
+
+Allow: SSH (ALL), HTTP (ALL), HTTPS (ALL)
+
+AppServer-SG:
+
+Allow:
+
+5000 from WebServer-SG
+
+SSH from WebServer-SG
+
+80, 443 from WebServer-SG
+
+DB-SG:
+
+Allow: 3306 from AppServer-SG
+
+👉 Task Update: Instead of 3 SGs, create 5 Security Groups for more granular control.
+
+4️⃣ Route 53 & ACM
+
+Route 53
+
+Create a Hosted Zone for zorogaming.shop
+
+Map NS with domain provider
+
+ACM (Certificate Manager)
+
+Request SSL Certificate for zorogaming.shop
+
+Validate via CNAME in Route 53
+
+5️⃣ Database (RDS)
+
+Create DB Subnet Group (at least 2 subnets)
+
+Launch MySQL RDS in private subnet with DB-SG
+
+6️⃣ EC2 Servers
+
+Web Server EC2 (Public Subnet, WebServer-SG)
+
 sudo yum install httpd -y
 sudo service httpd start
 cd /var/www/html/
 touch index.html script.js styles.css
 
 
-20. Create Application Load Balancer (ALB)
-Create Backend Target Group for App Server EC2 with:
+App Server EC2 (Private Subnet, AppServer-SG)
+
+sudo yum install python3 python3-pip -y
+pip3 install flask flask-mysql-connector flask-cors
+
+vi app.py
+nohup python3 app.py > output.log 2>&1 &
+ps -ef | grep app.py
+cat output.log
+curl http://10.0.3.47:5000/login
+
+
+Login to App Server
+
+vi zoro.pem
+chmod 400 zoro.pem
+ssh -i zoro.pem ec2-user@10.0.4.162
+
+7️⃣ Database Setup
+sudo yum install mysql -y
+mysql -h ytdb.cpk8oagkgyaz.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
+
+
+Run SQL queries from commands.sql to create DB, tables, and insert data.
+
+8️⃣ Load Balancers
+
+Application Load Balancer (Backend)
+
+Target Group → App Server EC2
+
 Port: 5000
+
 Health Check Path: /login
-Create Backend Load Balancer in the public subnet with:
+
 Listener Port: 80
-Attach the Target Group
-Create Frontend Target Group for Web Server EC2 with:
+
+Frontend Load Balancer
+
+Target Group → Web Server EC2
+
 Port: 80
+
 Health Check Path: /
-Create Frontend Load Balancer in the public subnet with:
+
 Listener Port: 80
 
-Attach the Target Group
-21. Configure Route 53 to Load Balancer
+9️⃣ Route 53 & SSL Integration
 
-Create an A record with alias pointing to the Frontend Load Balancer.
-22. Attach ACM Certificate to Load Balancer
+Create A Record (Alias) → Frontend Load Balancer
 
-23. Check the Deployment steps
+Attach ACM Certificate → Load Balancer
 
-24.Search the domain name zorogaming.shop
+🔟 Final Validation
 
-25.Login page will appear
-Enter the sql tables inserted commands get the output from the backend 
-load balancer
+Visit 👉 zorogaming.shop
 
+Login Page should appear
+
+Enter DB credentials → Query data from backend (via ALB → App Server → RDS)
