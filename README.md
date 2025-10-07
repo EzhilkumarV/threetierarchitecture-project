@@ -4,7 +4,7 @@
 #This is an Open Source Project Developed With the Knowledge of LearnWithMithranYT -Thanks for sharing the project 
 #This project demonstrates a **Highly Available & Scalable 3-Tier Architecture** on AWS 
 Where The Output will be displayed as If I login on to my domain zorogaming.shop it will be hosted in worldwide If i login on to the website using user id for example the internet facing  load balancer sends the requests to the app server receives it  and in  the app server the backend where i install sql database it returns the value of password and phone
-
+Note : Create your own Own Vpc With Subnet and Route Tables ,Security Groups and Databases and Load Balancers 
 ##  Architecture diagram 
  ![Threetier Architecture](https://github.com/EzhilkumarV/threetierarchitecture-project/blob/main/Threetier-Architecture.png?raw=true)
 
