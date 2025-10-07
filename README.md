@@ -29,7 +29,7 @@ Where The Output will be displayed as If I login on to my domain zorogaming.shop
 
 This project demonstrates a highly available, secure, and scalable architecture on AWS for zorogaming.shop.
 
-1️. VPC & Subnets
+## 1. VPC & Subnets
 
 Create VPC
 
@@ -41,7 +41,7 @@ Create 6 Subnets:
 
 2 Private Subnets (DB Subnet Group) → For Databases
 
-2️. Route Tables
+## 2️. Route Tables
 
 Public Route Table
 
@@ -59,7 +59,7 @@ Database Subnets → No NAT (private).
 
 (Optional: Allow NAT only for patching)
 
-3️. Security Groups
+## 3️. Security Groups
 
 WebServer-SG:
 
@@ -79,9 +79,8 @@ DB-SG:
 
 Allow: 3306 from AppServer-SG
 
-👉 Task Update: Instead of 3 SGs, create 5 Security Groups for more granular control.
 
-4️. Route 53 & ACM
+## 4️. Route 53 & ACM
 
 Route 53
 
@@ -95,13 +94,13 @@ Request SSL Certificate for zorogaming.shop
 
 Validate via CNAME in Route 53
 
-5️. Database (RDS)
+## 5️. Database (RDS)
 
 Create DB Subnet Group (at least 2 subnets)
 
 Launch MySQL RDS in private subnet with DB-SG
 
-6️. EC2 Servers
+## 6️. EC2 Servers
 
 Web Server EC2 (Public Subnet, WebServer-SG)
 
@@ -129,14 +128,13 @@ vi zoro.pem
 chmod 400 zoro.pem
 ssh -i zoro.pem ec2-user@10.0.4.162
 
-7️. Database Setup
+## 7️. Database Setup
 sudo yum install mysql -y
 mysql -h ytdb.cpk8oagkgyaz.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
 
-
 Run SQL queries from commands.sql to create DB, tables, and insert data.
 
-8️. Load Balancers
+## 8️. Load Balancers
 
 Application Load Balancer (Backend)
 
@@ -158,16 +156,16 @@ Health Check Path: /
 
 Listener Port: 80
 
-9️. Route 53 & SSL Integration
+## 9️. Route 53 & SSL Integration
 
 Create A Record (Alias) → Frontend Load Balancer
 
 Attach ACM Certificate → Load Balancer
 
-10. Final Validation
+## 10. Final Validation
 
-Visit 👉 awszorogaming.shop
+Visit  awszorogaming.shop
 
-Login Page should appear
+Login Page should appear in Web page
 
 Enter DB credentials → Query data from backend (via ALB → App Server → RDS)
