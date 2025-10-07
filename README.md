@@ -166,7 +166,7 @@ Attach ACM Certificate → Load Balancer
 
 🔟 Final Validation
 
-Visit 👉 zorogaming.shop
+Visit 👉 awszorogaming.shop
 
 Login Page should appear
 
