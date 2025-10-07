@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZoroGaming Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            margin: 40px auto;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .login-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-box p {
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Welcome to the ZoroGaming Store</h1>
+    </div>
+
+    <div class="container">
+        <img src="8937455d-aebc-452f-8b3e-f1202344a57b.jpg" alt="ZoroGaming Logo" class="logo">
+        
+        <div class="login-box">
+            <h2>Login</h2>
+            <button id="loginButton">Login</button>
+            <p id="response"></p>
+        </div>
+    </div>
+
+    <script>
+        const loginButton = document.getElementById("loginButton");
+        const response = document.getElementById("response");
+
+        loginButton.addEventListener("click", async () => {
+            response.textContent = "Logging in...";
+            try {
+                const res = await fetch("http://localhost:5000/login");
+                const data = await res.json();
+                response.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                response.textContent = "Error: Could not connect to server";
+            }
+        });
+    </script>
+</body>
+</html>
