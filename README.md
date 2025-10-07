@@ -169,3 +169,9 @@ Visit  awszorogaming.shop
 Login Page should appear in Web page
 
 Enter DB credentials → Query data from backend (via ALB → App Server → RDS)
+
+## 11.Output OF The Project
+![Output of Threetier Architecture](https://github.com/EzhilkumarV/threetierarchitecture-project/blob/main/Output%20of%20Threetier%20Architecture.png?raw=true)
+
+The ZoroGaming Store application is successfully deployed and accessible at https://aws.zorogaming.shop using Route53 and Other Services 
+This confirms that the front-end, application, and database layers are seamlessly integrated within the three-tier architecture, ensuring secure communication and efficient data flow between each tier.
