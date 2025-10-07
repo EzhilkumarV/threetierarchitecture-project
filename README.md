@@ -1,20 +1,20 @@
-# threetierarchitecture-project
+# Threetierarchitecture-project
 "AWS 3-Tier Architecture with Route 53, ALB, EC2 Auto Scaling Groups, and RDS (Multi-AZ) for high availability and scalability."
 # AWS 3-Tier Architecture 🚀
 #This is an Open Source Project Developed With the Knowledge of LearnWithMithranYT -Thanks for sharing the project 
 #This project demonstrates a **Highly Available & Scalable 3-Tier Architecture** on AWS 
 Where The Output will be displayed as If I login on to my domain zorogaming.shop it will be hosted in worldwide If i login on to the website using user id for example the internet facing  load balancer sends the requests to the app server receives it  and in  the app server the backend where i install sql database it returns the value of password and phone
 
-## 📌 Architecture diagram 
- below readme file
+##  Architecture diagram 
+ ![Threetier Architecture](https://github.com/EzhilkumarV/threetierarchitecture-project/blob/main/Threetier-Architecture.png?raw=true)
 
-## 🏗 Components
+##  Components
 - **Route 53** → DNS
 - **ALB (Public + Internal)** → Load Balancing
 - **EC2 ASG (Web + App Tiers)** → Auto Scaling
 - **RDS Multi-AZ** → High Availability Database
 
-## 🌍 Features
+##  Features
 - High Availability (Multi-AZ)
 - Scalability (Auto Scaling Groups)
 - Security (Internal-only App + DB tier)
@@ -25,11 +25,11 @@ Where The Output will be displayed as If I login on to my domain zorogaming.shop
 - CI/CD Pipeline (Optional)
 
   ##Deployment Steps
-🚀 ZoroGaming AWS Deployment Project
+   ZoroGaming AWS Deployment Project
 
 This project demonstrates a highly available, secure, and scalable architecture on AWS for zorogaming.shop.
 
-1️⃣ VPC & Subnets
+1️. VPC & Subnets
 
 Create VPC
 
@@ -41,7 +41,7 @@ Create 6 Subnets:
 
 2 Private Subnets (DB Subnet Group) → For Databases
 
-2️⃣ Route Tables
+2️. Route Tables
 
 Public Route Table
 
@@ -59,7 +59,7 @@ Database Subnets → No NAT (private).
 
 (Optional: Allow NAT only for patching)
 
-3️⃣ Security Groups
+3️. Security Groups
 
 WebServer-SG:
 
@@ -81,7 +81,7 @@ Allow: 3306 from AppServer-SG
 
 👉 Task Update: Instead of 3 SGs, create 5 Security Groups for more granular control.
 
-4️⃣ Route 53 & ACM
+4️. Route 53 & ACM
 
 Route 53
 
@@ -95,13 +95,13 @@ Request SSL Certificate for zorogaming.shop
 
 Validate via CNAME in Route 53
 
-5️⃣ Database (RDS)
+5️. Database (RDS)
 
 Create DB Subnet Group (at least 2 subnets)
 
 Launch MySQL RDS in private subnet with DB-SG
 
-6️⃣ EC2 Servers
+6️. EC2 Servers
 
 Web Server EC2 (Public Subnet, WebServer-SG)
 
@@ -129,14 +129,14 @@ vi zoro.pem
 chmod 400 zoro.pem
 ssh -i zoro.pem ec2-user@10.0.4.162
 
-7️⃣ Database Setup
+7️. Database Setup
 sudo yum install mysql -y
 mysql -h ytdb.cpk8oagkgyaz.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
 
 
 Run SQL queries from commands.sql to create DB, tables, and insert data.
 
-8️⃣ Load Balancers
+8️. Load Balancers
 
 Application Load Balancer (Backend)
 
@@ -158,13 +158,13 @@ Health Check Path: /
 
 Listener Port: 80
 
-9️⃣ Route 53 & SSL Integration
+9️. Route 53 & SSL Integration
 
 Create A Record (Alias) → Frontend Load Balancer
 
 Attach ACM Certificate → Load Balancer
 
-🔟 Final Validation
+10. Final Validation
 
 Visit 👉 awszorogaming.shop
 
