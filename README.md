@@ -84,7 +84,7 @@ Allow: 3306 from AppServer-SG
 
 Route 53
 
-Create a Hosted Zone for zorogaming.shop
+Create a Hosted Zone for awszorogaming.shop
 
 Map NS with domain provider
 
